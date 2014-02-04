@@ -1,0 +1,7 @@
+# Webstorm IDE
+.idea
+
+#Mac OSx
+.DS_Store
+.AppleDouble
+.LSOverride
