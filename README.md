@@ -23,6 +23,24 @@ Requires jQuery version ....
 
 ### Example
 
+#### Sample Links
+
+<table>
+<tr>
+<td>Callback</td>
+<td>http://viaf.org/viaf/AutoSuggest?query=james&callback=myCallBack</td>
+</tr>
+<tr>
+<td>Wildcard (only at end)</td>
+<td>http://viaf.org/viaf/AutoSuggest?query=jam%25&callback=samplecallback</td>
+</tr>
+<tr>
+<td>Name Only</td>
+<td>http://www.viaf.org/viaf/search?query=local.personalNames+%3D+%22james%22&recordSchema=http://viaf.org%2FVIAFCluster&maximumRecords=100&startRecord=1&resultSetTTL=300&recordPacking=xml&recordXPath=&sortKeys=</td>
+</tr>
+</table>
+
+
 ### Goals
 
 As a metadata editor I want a way to easily identify an entity so that I don’t have to manually add data.
