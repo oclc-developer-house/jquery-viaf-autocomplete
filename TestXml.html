@@ -1,0 +1,19 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Test xml to json</title>
+
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+
+<script type="text/javascript">
+    var viaf_url = "http://viaf.org/viaf/search?query=local.names+all%22Neal%20Stephenson%22&&httpAccept=application/rss%2bxmlcallback=?" ;
+	var nameData = $.getJSON(viaf_url);
+	console.log(nameData) ;
+</script>
+</head>
+
+<body>
+test
+</body>
+</html>
