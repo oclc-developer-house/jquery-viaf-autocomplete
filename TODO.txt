@@ -1,2 +1,9 @@
 Example URL:
 http://viaf.org/viaf/search?query=local.names+all%22Neal%20Stephenson%22
+
+Open Questions
+==============
+
+* can't specify extra fields in response to auto suggest? Have to use sru instead
+* get xml from search, even if specify json
+* need xml fields defined.
