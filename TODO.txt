@@ -1,0 +1,2 @@
+Example URL:
+http://viaf.org/viaf/search?query=local.names+all%22Neal%20Stephenson%22
