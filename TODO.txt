@@ -9,4 +9,6 @@ Open Questions
 * need xml fields defined.
   -- <ns*:nameType>Personal</ns*:nameType>
 * can we specify which fields we want back, to shorten response time?
+* made up namespaces that aren't specified in xml (e.g.: ns2:type) breaks xpath
 * make basic test page
+* All about VIAF: http://inkdroid.org/journal/2012/05/15/diving-into-viaf/
