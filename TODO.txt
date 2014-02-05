@@ -7,17 +7,21 @@ https://github.com/geetarista/jquery-plugin-template
 Widget Template
 http://jquery.webspirited.com/2011/03/jquery-ui-widget-development-skeleton/#more-109
 
+To Do:
+====================
+-Create widget to plug in example  
+-Make sample install 
+
+Problems we ran into
+====================
+-Wanted more fields than autosuggest api returned, tried using search api but it only returned xml 
+and we ran into cross domain ajax request problems since we are trying to do this all via javascript. Ended
+up using the autosuggest api.  Here's the xml field we wanted:  <ns*:nameType>Personal</ns*:nameType>
 
 Open Questions
 ==============
 
-* can't specify extra fields in response to auto suggest? Have to use sru instead
-* get xml from search, even if specify json
-* need xml fields defined.
-  -- <ns*:nameType>Personal</ns*:nameType>
-* can we specify which fields we want back, to shorten response time?
-* made up namespaces that aren't specified in xml (e.g.: ns2:type) breaks xpath
-* make basic test page
+* can we get nameType back in autosuggest
 * All about VIAF: http://inkdroid.org/journal/2012/05/15/diving-into-viaf/
 * we've funnelled the following request to OCLC developer(s):
    * modify autosuggest to:
