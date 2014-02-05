@@ -19,3 +19,8 @@ Open Questions
 * made up namespaces that aren't specified in xml (e.g.: ns2:type) breaks xpath
 * make basic test page
 * All about VIAF: http://inkdroid.org/journal/2012/05/15/diving-into-viaf/
+* we've funnelled the following request to OCLC developer(s):
+   * modify autosuggest to:
+      - allow query by type
+      - return type as part of jsonp return
+   * modify justlinks.json for the viaf id call to include the data available in xml
