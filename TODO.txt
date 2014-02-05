@@ -30,3 +30,18 @@ New VIAF Autocomplete Endpoint from Ralph Van
 
 http://rdap02pxdu.dev.oclc.org:8080/viaf/64576969/viaf.jsonld
 
+
+How this works
+==============
+
+In your html, you have a hidden input
+<input type="hidden" id="myViafId"/>
+
+in your $document ready, you'd do
+
+$("#myViafId").viafautocomplete(
+  {
+    onSelect: function(object){}, 
+    onNoMatch: function() {alert("no match");}
+  }
+);
