@@ -1,6 +1,9 @@
 Example URL:
 http://viaf.org/viaf/search?query=local.names+all%22Neal%20Stephenson%22
 
+Plugin template
+https://github.com/geetarista/jquery-plugin-template
+
 Open Questions
 ==============
 
