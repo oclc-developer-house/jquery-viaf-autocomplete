@@ -30,7 +30,7 @@
     /*
      * Next line contains an object containing all the default options
      * that you want to use in your plugin
-     */
+     */ 
     options: {
     	baseUrl: "http://viaf.org/viaf/AutoSuggest?query=",
     	boxWidth: "20",
