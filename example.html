@@ -15,9 +15,6 @@
 	</style>
 	<script>
 	
-	//var testArray=new Array("Saab","Volvo","BMW");
-	//console.log(testArray);
-	
 	$(function() {
 		function log( message ) {
 			$( "<div>" ).text( message ).prependTo( "#log" );
@@ -38,7 +35,7 @@
 						query: request.term
 					},
 					success: function( data ) {
- 						// data needs to array of items for response()
+ 						// data needs to be an array of items for response()
 						
 						theresponse = [] ;
 						//console.log(data.result[0].term);
@@ -51,15 +48,11 @@
 							}
 							++x;
 						}
-
 			 
 					     console.log(theresponse);
 						//console.log(data);
 						//response( data );
 
-						//var testArray=new Array("Saab","Volvo","BMW","leaf","biodiesel","bike");
-
-						//console.log(testArray);
 						response(theresponse);
 					}
 				});
@@ -95,7 +88,6 @@
 
 <div class="demo-description">
 <p>The Autocomplete widgets provides suggestions while you type into the field. Here the suggestions are cities, displayed when at least two characters are entered into the field.</p>
-<p>In this case, the datasource is the <a href="http://geonames.org">geonames.org webservice</a>. While only the city name itself ends up in the input after selecting an element, more info is displayed in the suggestions to help find the right entry. That data is also available in callbacks, as illustrated by the Result area below the input.</p>
 </div>
 </body>
 </html>
