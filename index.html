@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery VIAF Autocomplete - Remote JSONP datasource</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+  <style>
+  .ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }
+  #search { width: 25em; }
+  </style>
+  <script>
+$(function() {
+    function log( message ) {
+        $( "<div>" ).text( message ).prependTo( "#log" );
+        $( "#log" ).scrollTop( 0 );
+    }
+
+    $( "#search" ).autocomplete({
+        source: function( request, response ) {
+            alert("Searching '" + request.term + "'!");
+            $.ajax({
+                url: "http://viaf.org/viaf/search",
+             // url: "http://viaf.org/viaf/AutoSuggest?query=" + request.term,
+                cache: true,
+                accepts: "application/json",        // does nothing?
+                dataType: "jsonp",                  // doesn't affect "Accept" header, defying documentation
+                jsonp: false,                       // really means disable "callback=?"
+                jsonpCallback: "callbackName",      // don't auto-generate callback name (for "?")
+                data: {
+                    startRecord: 0,
+                    maxRecords: 20,
+                    query: "local.names+all+" + '"' + request.term + '"',
+                },
+                success: function( data ) {
+                    response( $.map( data.results, function( item ) {
+                        return {
+                            label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+                            value: item.name
+                        }
+                    }));
+                }
+            });
+        },
+        minLength: 2,
+        select: function( event, ui ) {
+            log( ui.item ?
+            "Selected: " + ui.item.label :
+            "Nothing selected, input was " + this.value);
+        },
+        open: function() {
+            $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+        },
+        close: function() {
+            $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+        }
+    });
+});
+</script>
+</head>
+<body>
+
+<div class="ui-widget">
+<label for="search">Search Term(s): </label>
+<input id="search">
+</div>
+
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+Result:
+<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+</body>
+</html>
+
