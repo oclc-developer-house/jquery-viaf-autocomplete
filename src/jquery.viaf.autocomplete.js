@@ -4,7 +4,19 @@
 * most excellent jquery UI widget framework at 
 * http://jquery.webspirited.com/2011/03/jquery-ui-widget-development-skeleton/#more-109
 */
-
+/*
+ * Depends on jQuery UI version 1.8.1 or higher
+ *  jquery.ui.core.js
+ *  jquery.ui.widget.js
+ *  jquery.ui.position.js
+ *  jquery.ui.button.js
+ *  jquery.ui.dialog.js
+ *  jquery.ui.autocomplete.js
+ *  
+ *  Assumes jQuery UI css, images, etc.
+ *  
+ *  Make sure you load the right version of jQuery for your version of jQuery UI!!
+ */
 
 /*
  * First we start off with the closure
@@ -14,7 +26,7 @@
 (function($) {
 
   /* First line defines the name of your widget */
-  $.widget("ui.widgetName", {
+  $.widget("viaf.autocomplete", {
     /*
      * Next line contains an object containing all the default options
      * that you want to use in your plugin
