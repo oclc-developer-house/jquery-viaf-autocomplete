@@ -24,3 +24,9 @@ Open Questions
       - allow query by type
       - return type as part of jsonp return
    * modify justlinks.json for the viaf id call to include the data available in xml
+
+New VIAF Autocomplete Endpoint from Ralph Van
+=============================================
+
+http://rdap02pxdu.dev.oclc.org:8080/viaf/64576969/viaf.jsonld
+
