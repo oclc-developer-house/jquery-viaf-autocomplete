@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>jQuery UI Autocomplete - Remote JSONP datasource</title>
+	 <title>jQuery UI Autocomplete - Remote JSONP datasource</title>
 	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
-  <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+     <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	<style>
 	.ui-autocomplete-loading {
 		background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
 	}
-	#city { width: 25em; }
+	#nameField { width: 25em; }
 	</style>
 	<script>
+	
+	var verifiedName ;
+	var verifiedViafid ;
+	var nameOutputfield = "myVerifiedname" ; // these should be parameters passed in
+	var viafidOutputfield = "myViafid" ; // these should be parameters passed in
 	
 	$(function() {
 		function log( message ) {
@@ -21,7 +26,7 @@
 			$( "#log" ).scrollTop( 0 );
 		}
 
-		$( "#city" ).autocomplete({
+		$( "#nameField" ).autocomplete({
 			source: function( request, response ) {
 				$.ajax({
 					//url: "http://gd.geobytes.com/AutoCompleteCity",
@@ -35,24 +40,30 @@
 						query: request.term
 					},
 					success: function( data ) {
- 						// data needs to be an array of items for response()
+ 						// data needs to array of items for response()
 						
 						theresponse = [] ;
 						//console.log(data.result[0].term);
-
+                        //console.log(data);
 	                    x=0;
-						while (x<10){
-							if (data.result[x].term) {
-						       console.log(data.result[x].term);
-							   theresponse.push(data.result[x].term);
-							}
-							++x;
-						}
+						if (data.result != null) {
+						  while (x<data.result.length){
+						  	if (data.result[x].term != 'undefined') {
+						       //console.log(data.result[x].term);
+							   nameID=new Object();
+							   nameID.label=data.result[x].term ;
+                               nameID.value=data.result[x].viafid;
+							   theresponse.push(nameID) ;
+							  // theresponse.push(data.result[x].term + " (viaf id: " + data.result[x].viafid + ")");
+							   //An array of strings: [ "Choice1", "Choice2" ]
+//An array of objects with label and value properties: [ { label: "Choice1", value: "value1" }, ... ]		   
+							} // end if data result term
+						   ++x;
+						  } // end while data.result
+						} // end if data.result
 			 
-					     console.log(theresponse);
-						//console.log(data);
-						//response( data );
-
+					    console.log(theresponse);
+						
 						response(theresponse);
 					}
 				});
@@ -60,8 +71,14 @@
 			minLength: 2,
 			select: function( event, ui ) {
 				log( ui.item ?
-					"Selected: " + ui.item.label :
+					"Selected: " + ui.item.label + "\n" + ui.item.value :
 					"Nothing selected, input was " + this.value);
+                // $( "#log" ).text( 0 );
+				//$("#" + fieldset_id);
+				//$(nameOutputfield).val(ui.item.value);
+				$("#myVerifiedname").val(ui.item.label);
+				$("#vaifidOutputfield").val(ui.item.value);
+
 			},
 			open: function() {
 				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
@@ -76,18 +93,28 @@
 <body>
 
 <div class="ui-widget">
-	<label for="city">Name: </label>
-	<input id="city">
-	Powered by <a href="http://geonames.org">viaf.org</a>
+	<label for="nameField">Name: </label>
+	<input id="nameField">
+	Powered by <a href="http://viaf.org">viaf.org</a>
 </div>
-
+It then populates two fields:
+<form>
+<p>
+name:<input id="myVerifiedname" />
+</p>
+<p>
+id:<input id="vaifidOutputfield" />
+</p>
+</form>
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">
 	Result:
-	<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+	<div id="log" style="height: 200px; width: 400px; overflow: auto;" class="ui-widget-content"></div>
 </div>
 
 <div class="demo-description">
-<p>The Autocomplete widgets provides suggestions while you type into the field. Here the suggestions are cities, displayed when at least two characters are entered into the field.</p>
+<p>The Autocomplete widgets provides suggestions while you type into the field. Here the suggestions are names from viaf, displayed when at least two characters are entered into the field.</p>
+
+ 
 </div>
 </body>
 </html>
