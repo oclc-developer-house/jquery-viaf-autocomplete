@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>jQuery UI Autocomplete - Remote JSONP datasource</title>
+	 <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+	<style>
+	.ui-autocomplete-loading {
+		background: white url("images/ui-anim_basic_16x16.gif") right center no-repeat;
+	}
+	#city { width: 25em; }
+	</style>
+	<script>
+	
+	//var testArray=new Array("Saab","Volvo","BMW");
+	//console.log(testArray);
+	
+	$(function() {
+		function log( message ) {
+			$( "<div>" ).text( message ).prependTo( "#log" );
+			$( "#log" ).scrollTop( 0 );
+		}
+
+		$( "#city" ).autocomplete({
+			source: function( request, response ) {
+				$.ajax({
+					//url: "http://gd.geobytes.com/AutoCompleteCity",
+					//http://gd.geobytes.com/AutoCompleteCity?q=salem
+					
+					url: "http://viaf.org/viaf/AutoSuggest", 
+					//http://viaf.org/viaf/AutoSuggest?query=lev
+					dataType: "jsonp",
+					data: {
+						//q: request.term
+						query: request.term
+					},
+					success: function( data ) {
+ 						// data needs to array of items for response()
+						
+						theresponse = [] ;
+						//console.log(data.result[0].term);
+
+	                    x=0;
+						while (x<10){
+							if (data.result[x].term) {
+						       console.log(data.result[x].term);
+							   theresponse.push(data.result[x].term);
+							}
+							++x;
+						}
+
+			 
+					     console.log(theresponse);
+						//console.log(data);
+						//response( data );
+
+						//var testArray=new Array("Saab","Volvo","BMW","leaf","biodiesel","bike");
+
+						//console.log(testArray);
+						response(theresponse);
+					}
+				});
+			},
+			minLength: 2,
+			select: function( event, ui ) {
+				log( ui.item ?
+					"Selected: " + ui.item.label :
+					"Nothing selected, input was " + this.value);
+			},
+			open: function() {
+				$( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+			},
+			close: function() {
+				$( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+			}
+		});
+	});
+	</script>
+</head>
+<body>
+
+<div class="ui-widget">
+	<label for="city">Name: </label>
+	<input id="city">
+	Powered by <a href="http://geonames.org">viaf.org</a>
+</div>
+
+<div class="ui-widget" style="margin-top:2em; font-family:Arial">
+	Result:
+	<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+<div class="demo-description">
+<p>The Autocomplete widgets provides suggestions while you type into the field. Here the suggestions are cities, displayed when at least two characters are entered into the field.</p>
+<p>In this case, the datasource is the <a href="http://geonames.org">geonames.org webservice</a>. While only the city name itself ends up in the input after selecting an element, more info is displayed in the suggestions to help find the right entry. That data is also available in callbacks, as illustrated by the Result area below the input.</p>
+</div>
+</body>
+</html>
