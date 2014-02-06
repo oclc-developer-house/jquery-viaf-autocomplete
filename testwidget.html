@@ -26,6 +26,30 @@ $(function() {
     	 select: function(item){
     		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);} 
      });
+     $("#secondViafId").viafcomplete({boxWidth: "40", 
+    	 label:"Will alert on no select", 
+    	 select: function(item){
+    		 var message = "From Second Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
+    	 },
+    	 noselect: function() {
+    		 alert("you didn't select anything??!");
+    	 }
+     });
+     $("#thirdViafId").viafcomplete({
+    	 label:"Will alert on no match, confirm if you want what's there", 
+    	 select: function(item){
+    		 var message = "From Third Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
+    	 },
+    	 onNoMatch: {
+     		clearId: true,
+ 			clearBox: false
+     	},
+    	 nomatch: function() {
+    		 if (!confirm("click OK to leave your non-matching text; Cancel otherwise")) {
+				$(this).boxValue("");    		
+    		 };
+    	 }
+     });
 }); 
 </script>
 </head>
@@ -35,6 +59,14 @@ $(function() {
 <input type="hidden"  id="myViafId"/>
 </div>
 <div><button  onClick='$("#myViafId").viafcomplete("boxValue","")'>Clear field</button></div>
+<div class="ui-widget">
+<input type="hidden"  id="secondViafId"/>
+</div>
+<div><button  onClick='$("#secondViafId").viafcomplete("boxValue","")'>Clear field</button></div>
+<div class="ui-widget">
+<input type="hidden"  id="thirdViafId"/>
+</div>
+<div><button  onClick='$("#thirdViafId").viafcomplete("boxValue","")'>Clear field</button></div>
 
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">
 Result:

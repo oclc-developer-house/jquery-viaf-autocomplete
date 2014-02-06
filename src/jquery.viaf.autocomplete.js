@@ -36,6 +36,8 @@
     	boxWidth: "20",
     	startsWith: false,
     	authType: null,
+    	noselect: null,
+    	nomatch:null,
     	onNoMatch: {
     		clearId: true,
 			clearBox: true
@@ -71,7 +73,7 @@
 				$(this).val("");
 			};	
 			if ($.isFunction(o.noselect)) {
-				return o.noselect(o,elements);
+				return o.noselect(o.elements);
 			}
 				return true;
     	},
@@ -131,40 +133,40 @@
 				data: {},
 				success: function(data) {
 					var ct = 0; 
-					response( $.map( data.result, function(item) {
-						// CUT THIS OUT WHEN WE GET THE NEW ENDPOINT
-						if (ct % 4 ===  0) {
-							item.nametype = "personal";
-						}
-						else if (ct % 4 === 1) {
-							item.nametype="work";
-						}
-						else if (ct % 4 === 2) {
-							item.nametype="organization";
-						}
-						else {
-							item.nametype="geographic";
-						}
-						// END OF CUT OUT
-						var retLbl = item.term;
-						if (item.nametype) {
-							retLbl = retLbl + " [" + item.nametype + "]";
-						}
-						ct++;
-						return {
-							label: retLbl,
-							value: item.term,
-							id: item.viafid,
-							nametype: item.nametype
-						}
-					}));
+					if (data.result) {
+						response( $.map( data.result, function(item) {
+							// CUT THIS OUT WHEN WE GET THE NEW ENDPOINT
+							if (ct % 4 ===  0) {
+								item.nametype = "personal";
+							}
+							else if (ct % 4 === 1) {
+								item.nametype="work";
+							}
+							else if (ct % 4 === 2) {
+								item.nametype="organization";
+							}
+							else {
+								item.nametype="geographic";
+							}
+							// END OF CUT OUT
+							var retLbl = item.term;
+							if (item.nametype) {
+								retLbl = retLbl + " [" + item.nametype + "]";
+							}
+							ct++;
+							return {
+								label: retLbl,
+								value: item.term,
+								id: item.viafid,
+								nametype: item.nametype
+							}
+						}));
+					}
 					if (o.oncount && $.isFunction(o.oncount)) {
 						o.oncount(self.elements.$box.autocomplete("widget"), ct);
 					}
 					if (ct === 0) {
-						if (!(o.uri_prfx && term == o.uri_prfx.substr(0,term.length))) {
-							self._trigger('_nomatch',$.Event("_nomatch"), {term: term} );
-						}
+						self._trigger('_nomatch',$.Event("_nomatch"), {term: term} );
 					}
 					else {
 						// we really don't need an else here.
