@@ -21,13 +21,12 @@ $(function() {
         $( "#log" ).scrollTop( 0 );
     }
     
-     $("#myViafId").viafcomplete({boxWidth: "30", 
-    	 label:"Your entry here", 
+     $("#myViafId").viafcomplete( {
     	 select: function(item){
     		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);} 
      });
      $("#secondViafId").viafcomplete({boxWidth: "40", 
-    	 label:"Will alert on no select", 
+    	 label:"Your field", 
     	 select: function(item){
     		 var message = "From Second Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
     	 },
@@ -36,7 +35,7 @@ $(function() {
     	 }
      });
      $("#thirdViafId").viafcomplete({
-    	 label:"Will alert on no match, confirm if you want what's there", 
+    	 label:"Match or no:", 
     	 select: function(item){
     		 var message = "From Third Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
     	 },
@@ -54,15 +53,24 @@ $(function() {
 </script>
 </head>
 <body>
-
+<h1>VIAF Autocompleter widget exemplar page </h1>
+<div class="ui-widget">
+This page contains several examples of using the <strong>jquery.viaf.autocomplete.js</strong>
+widget.  Each example does include use of the select call back to write to the Results box.
+<br/>
+</div>
+<h2>Bare bones: no label for the search box, no additional option overrides</h2>
 <div class="ui-widget">
 <input type="hidden"  id="myViafId"/>
 </div>
 <div><button  onClick='$("#myViafId").viafcomplete("boxValue","")'>Clear field</button></div>
 <div class="ui-widget">
+<h2>With a label, and a noselect callback <h2>
 <input type="hidden"  id="secondViafId"/>
 </div>
 <div><button  onClick='$("#secondViafId").viafcomplete("boxValue","")'>Clear field</button></div>
+
+<h2>with a label and a nomatch callback that asks the user whether they want to leave what they've typed in the field</h2>
 <div class="ui-widget">
 <input type="hidden"  id="thirdViafId"/>
 </div>
