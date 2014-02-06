@@ -21,7 +21,11 @@ $(function() {
         $( "#log" ).scrollTop( 0 );
     }
     
-     $("#myViafId").viafcomplete({boxWidth: "30", label:"Your entry here"});
+     $("#myViafId").viafcomplete({boxWidth: "30", 
+    	 label:"Your entry here", 
+    	 select: function(item){
+    		 var message = item.id + " " + item.label; log(message);} 
+     });
 }); 
 </script>
 </head>
