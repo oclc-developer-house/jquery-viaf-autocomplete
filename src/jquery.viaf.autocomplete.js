@@ -45,7 +45,7 @@
 			clearBox: true
     	},
 	    _nomatch: function(event, ui) {
-			var $elem = $(this).data("search");
+			var $elem = $(this).data("viafcomplete");
 			var o = $elem.options;
 			var elements = $elem.elements;
 			elements.$box.removeClass("ui-autocomplete-loading");
@@ -61,7 +61,7 @@
 			return true;
     	},
     _noselect: function(event) {
-    		var $elem = $(this).data("search");
+    		var $elem = $(this).data("viafcomplete");
 			var o = $elem.options, elements = $elem.elements;
 			elements.$box.removeClass("ui-autocomplete-loading");
  			if (o.onNoSelect.clearBox) {
@@ -102,12 +102,8 @@
      */
     _create: function() {
     	var  self = this,o = this.options, e = this.element;
-    	var hidden = $(e).is(':hidden'),selfId = $(e).attr('id'),prefx="wrdshk_" + selfId;
-    	var labelId = prefx + "_lbl", textId = prefx+ "_box", divId = prefx + "_div";
-    	var lbl = '<label for="' + textId + '" id="' + labelId + '">' + ((o.label)?o.label:'') + '</label> ';
-     	var boxHtml	= lbl + '<input type="text" id="' + textId + '" size="' + o.boxWidth + '"/>';
-    	$(e).after('<div id="' + divId +'" class="ui-widget">' + boxHtml + '</div>');
-    	this.elements = {$label: e.parent().find('#' + labelId), $box: e.parent().find('#' + textId), $div: e.parent().find('#' + divId)};
+    	var doc = e[ 0 ].ownerDocument;
+
     	this.selectFxn = (function(event, ui) {
     		self.elements.$box.removeClass("ui-autocomplete-loading");
     		//console.log("label: " + ui.item.label + " pref: " + ui.item.pref);
@@ -132,12 +128,10 @@
 			$.ajax({
 				url: url,
 				dataType: "jsonp",
-				jsonp: "jsonp",
-				crossDomain: true,
 				data: {},
 				success: function(data) {
 					var ct = 0; 
-					response( $.map( data.results, function(item) {
+					response( $.map( data.result, function(item) {
 						var retLbl = item.term;
 						ct++;
 						return {
@@ -155,12 +149,12 @@
 						}
 					}
 					else {
-						
+						alert("not implemented");
 					}
 				},
 				statusCode: {
 				    200: function() {
-						self.calcAndSetWidth(o.menuWidth, o.menuHeight); 
+						console.log("200");
 				    }, 
 				    404: function() {
 				    	alert("404");
@@ -168,7 +162,40 @@
 				  }
 			});
 		});
-    },
+    	var hidden = $(e).is(':hidden'),selfId = $(e).attr('id'),prefx="oclcviaf_" + selfId;
+    	var labelId = prefx + "_lbl", textId = prefx+ "_box", divId = prefx + "_div";
+    	var lbl = '<label for="' + textId + '" id="' + labelId + '">' + ((o.label)?o.label:'') + '</label> ';
+     	var boxHtml	= lbl + '<input type="text" id="' + textId + '" size="' + o.boxWidth + '"/>';
+    	$(e).after('<div id="' + divId +'" class="ui-widget">' + boxHtml + '</div>');
+    	this.elements = {$label: e.parent().find('#' + labelId), $box: e.parent().find('#' + textId), $div: e.parent().find('#' + divId)};
+     	/* these are the options needed for autocomplete.  We use the created $div as the "appendTo" object*/
+    	this.acOptions = {
+    			minLength: 2,
+    			//delay:300,
+    			startsWith: o.startsWith,
+    			appendTo: o.appendTo || this.elements.$div,
+    			hidId: o.box,
+    			auth: o.auth,
+    			autoFocus: o.autoFocus,
+    			select: this.selectFxn,
+				change: function(event,ui) {
+    				var that = this;
+						$(that).removeClass("ui-autocomplete-loading");
+      				var foundItem = (ui.item)?true:false;
+  					if (!foundItem){
+ 						self._trigger('_noselect');
+ 					}
+	    		},
+    			source: this.sourceFxn
+    	};
+     	this.elements.$box.attr('hidId', '#'+selfId)
+    				.data("url",this._getUrl())
+    				.autocomplete(this.acOptions);
+//    				.addClass("ocl_textbox");
+
+   },
+  	
+//    },
 
     /*
      * Next we can declare any private functions to be used internally by the widget
@@ -197,6 +224,7 @@
     /*
      *   Public functions
      */
+	
     getDiv: function() {
  	   return this.elements.$div;
     },
