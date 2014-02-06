@@ -26,7 +26,7 @@
 (function($) {
 
   /* First line defines the name of your widget */
-  $.widget("ui.viafcomplete", {
+  $.widget("oclc.viafcomplete", {
     /*
      * Next line contains an object containing all the default options
      * that you want to use in your plugin
