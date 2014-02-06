@@ -38,6 +38,7 @@
     	authType: null,
     	noselect: null,
     	nomatch:null,
+    	clearOnSelect: false,
     	onNoMatch: {
     		clearId: true,
 			clearBox: true
@@ -121,6 +122,7 @@
 					self.boxValue(ui.item.label);
 				}
 			if (o.select) {o.select( ui.item, event);}
+			if (o.clearOnSelect) {self.elements.$box.val(""); }
 			return false;
 		});
     	this.sourceFxn = (function(request, response) {

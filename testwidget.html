@@ -22,8 +22,11 @@ $(function() {
     }
     
      $("#myViafId").viafcomplete( {
+    	 clearOnSelect:true,
     	 select: function(item){
-    		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);} 
+    		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
+    		
+    	 } 
      });
      $("#secondViafId").viafcomplete({boxWidth: "40", 
     	 label:"Your field", 
