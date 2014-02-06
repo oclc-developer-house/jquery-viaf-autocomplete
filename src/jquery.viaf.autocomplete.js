@@ -149,7 +149,7 @@
 						}
 					}
 					else {
-						alert("not implemented");
+						console.log("not implemented");
 					}
 				},
 				statusCode: {
