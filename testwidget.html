@@ -24,7 +24,7 @@ $(function() {
      $("#myViafId").viafcomplete({boxWidth: "30", 
     	 label:"Your entry here", 
     	 select: function(item){
-    		 var message = item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);} 
+    		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);} 
      });
 }); 
 </script>
@@ -34,6 +34,7 @@ $(function() {
 <div class="ui-widget">
 <input type="hidden"  id="myViafId"/>
 </div>
+<div><button  onClick='$("#myViafId").viafcomplete("boxValue","")'>Clear field</button></div>
 
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">
 Result:
