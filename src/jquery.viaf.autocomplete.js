@@ -167,15 +167,15 @@
 						}
 					}
 					else {
-						console.log("not implemented");
+						// we really don't need an else here.
 					}
 				},
 				statusCode: {
 				    200: function() {
-						console.log("200");
+						//console.log("200");
 				    }, 
 				    404: function() {
-				    	alert("404");
+				    	//alert("404");
 				    }
 				  }
 			});
