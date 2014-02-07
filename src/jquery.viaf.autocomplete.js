@@ -137,20 +137,6 @@
 					var ct = 0; 
 					if (data.result) {
 						response( $.map( data.result, function(item) {
-							// CUT THIS OUT WHEN WE GET THE NEW ENDPOINT
-							if (ct % 4 ===  0) {
-								item.nametype = "personal";
-							}
-							else if (ct % 4 === 1) {
-								item.nametype="work";
-							}
-							else if (ct % 4 === 2) {
-								item.nametype="organization";
-							}
-							else {
-								item.nametype="geographic";
-							}
-							// END OF CUT OUT
 							var retLbl = item.term;
 							if (item.nametype) {
 								retLbl = retLbl + " [" + item.nametype + "]";

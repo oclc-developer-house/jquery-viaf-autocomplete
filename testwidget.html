@@ -23,6 +23,7 @@ $(function() {
     
      $("#myViafId").viafcomplete( {
     	 clearOnSelect:true,
+    	 baseUrl: "http://rdap02pxdu.dev.oclc.org:8080/viaf/AutoSuggest?query=",
     	 select: function(item){
     		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
     		
@@ -62,7 +63,7 @@ This page contains several examples of using the <strong>jquery.viaf.autocomplet
 widget.  Each example does include use of the select call back to write to the Results box.
 <br/>
 </div>
-<h2>Bare bones: no label for the search box, no additional option overrides</h2>
+<div class="ui-widget">This instance accesses the test viaf endpoint by Ralph Levan at OCLC</div>
 <div class="ui-widget">
 <input type="hidden"  id="myViafId"/>
 </div>
