@@ -1,5 +1,10 @@
 jquery-viaf-autocomplete
 ========================
+### Usage
+
+Download and include   src/jquery.viaf.autocomplete.js 
+
+See for sample  implementation options in  testwidget.html
 
 ### VIAF Documentation
 
@@ -47,7 +52,7 @@ As a metadata editor I want a way to easily identify an entity so that I don’t
 
 As an integrator I want modular so that it is easy to install.
 
- 
+<!--
 ### Endpoint Extensions
 Long term, we'd like the search endpoint to be able to provide JSONP like autosuggest does:
 
@@ -101,3 +106,4 @@ The "type" value should correspond to: *records > record > recordData > VIAFClus
 
 Then the obvious next step would be to allow a query parameter to filter by the newly exposed field.  The motivation is that when you know you are looking for a geographic or corporate name or UniformTitleWork, the relevance of the most likely auto-complete entries will be zero.  In those cases, the user is quite likely to get back only the "wrong" completions until much later in the string and it is conceivable that even the complete string will still retrieve more than one page of hits of the wrong type.  
 
+-->
