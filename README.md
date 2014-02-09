@@ -28,7 +28,7 @@ Requires jQuery version ....
 
 ### Example
 
-#### Sample Links
+#### Sample Viaf Links
 
 <table>
 <tr>
@@ -45,6 +45,7 @@ Requires jQuery version ....
 </tr>
 </table>
 
+<!--
 
 ### Goals
 
@@ -52,7 +53,6 @@ As a metadata editor I want a way to easily identify an entity so that I don’t
 
 As an integrator I want modular so that it is easy to install.
 
-<!--
 ### Endpoint Extensions
 Long term, we'd like the search endpoint to be able to provide JSONP like autosuggest does:
 
