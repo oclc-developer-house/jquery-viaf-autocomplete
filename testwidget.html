@@ -15,13 +15,18 @@
   #search { width: 25em; }
   </style>
   <script>
-$(function() {
+  function clearField(id) {
+  	$(id).viafcomplete("boxValue",""); 
+  	$(id).val("");
+  }
+
+  $(function() {
     function log( message ) {
         $( "<div>" ).text( message ).prependTo( "#log" );
         $( "#log" ).scrollTop( 0 );
     }
-    
-     $("#myViafId").viafcomplete( {
+
+    $("#myViafId").viafcomplete( {
     	 clearOnSelect:true,
     	 baseUrl: "http://rdap02pxdu.dev.oclc.org:8080/viaf/AutoSuggest?query=",
     	 select: function(item){
@@ -41,7 +46,8 @@ $(function() {
      $("#thirdViafId").viafcomplete({
     	 label:"Match or no:", 
     	 select: function(item){
-    		 var message = "From Third Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
+    		 var message = "From Third Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; 
+    		 log(message);
     	 },
     	 onNoMatch: {
      		clearId: true,
@@ -53,6 +59,14 @@ $(function() {
     		 };
     	 }
      });
+     $("#unhidd").viafcomplete({
+    	select: function(item){
+    		var message = "From unhidden box: " + item.id + " " + item.value;
+    		log(message);
+    		
+    	} 
+     });
+     
 }); 
 </script>
 </head>
@@ -68,23 +82,38 @@ widget.  Each example does include use of the select call back to write to the R
 <div class="ui-widget">
 <input type="hidden"  id="myViafId"/>
 </div>
-<div><button  onClick='$("#myViafId").viafcomplete("boxValue","")'>Clear field</button></div>
+<div>
+<button  onClick='alert($("#myViafId").val())'>Display hidden viaf id</button>&nbsp;
+</div>
+<h2>With a label, and a noselect callback </h2>
 <div class="ui-widget">
-<h2>With a label, and a noselect callback <h2>
 <input type="hidden"  id="secondViafId"/>
 </div>
-<div><button  onClick='$("#secondViafId").viafcomplete("boxValue","")'>Clear field</button></div>
+<div>
+<button  onClick='alert($("#secondViafId").val())'>Display hidden viaf id</button>&nbsp;
+<button  onClick='clearField("#secondViafId")'>Clear field</button></div>
 
-<h2>with a label and a nomatch callback that asks the user whether they want to leave what they've typed in the field</h2>
+<h2>with a label and a nomatch callback that asks the user whether they want 
+to leave what they've typed in the field</h2>
 <div class="ui-widget">
 <input type="hidden"  id="thirdViafId"/>
 </div>
-<div><button  onClick='$("#thirdViafId").viafcomplete("boxValue","")'>Clear field</button></div>
-
+<div>
+<button  onClick='alert($("#thirdViafId").val())'>Display hidden viaf id</button>&nbsp;
+<button  onClick='clearField("#thirdViafId")'>Clear field</button></div>
+<!-- 
+widget has to be fixed to accommodate already-defined boxes
+<h2>Attaching to an already-defined text box</h2>
+<div class="ui-widget">
+<input type="text" id="unhidd"/>
+</div>
+ -->
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">
 Result:
 <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
 </div>
+
+
 
 </body>
 </html>
