@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery VIAF Autocomplete - Remote JSONP datasource</title>
+  <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+ 
+  <script src="src/jquery.viaf.autocomplete.js"></script>
+  <style>
+  .ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }
+  #search { width: 25em; }
+  </style>
+</head>
+<body>
+
+
+ <form id="edit_metadata" name="edit_metadata" method="post" action="/jspui/tools/edit-item">
+ <textarea id="value_dc_contributor_author_00" name="value_dc_contributor_author_00" rows="3" cols="50">Campbell, George L</textarea>
+ <textarea id="value_dc_identifier_viaf_00" name="value_dc_identifier_viaf_00" rows="3" cols="50">299037438</textarea>
+ </form>
+
+ 
+<script>
+    $(function() {
+	 if($('#edit_metadata').length != 0) {
+     $("#edit_metadata").before( "<input type=\"hidden\"  id=\"viafSearch\"/>" );
+     $("#viafSearch").viafcomplete({
+		 // baseUrl optional - this one uses dev autosuggest which includes name type
+		 baseUrl: "http://rdap02pxdu.dev.oclc.org:8080/viaf/AutoSuggest?query=",
+		 clearOnSelect:true,
+		 boxWidth: "30", 
+    	 label:"Search Viaf:", 
+    	 select: function(item){
+			 $("#value_dc_contributor_author_00").val(item.value);
+			 $("#value_dc_identifier_viaf_00").val(item.id);			 
+		 } // end select
+     }); // end viafcomplete
+	 } // end if edit_metadata exists
+}); 
+</script>
+
+</body>
+</html>
+
