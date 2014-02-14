@@ -1,10 +1,30 @@
 jquery-viaf-autocomplete
 ========================
+### Goals
+
+To provide an easy way to obtain the VIAF ID of an input entity through use of the VIAF endpoint.  
+
+There are presently two widgets in this project:
+  * jquery.viaf.autocomplete.js , which uses, but does not extend, jquery.ui.autocomplete
+  * jquery.viafauto.js , which is an extension of jquery.ui.autocomplete
+
+Currently, the widgets are using the OCLC VIAF AutoSuggest API endpoint, but we may switch to using the VIAF Search endpoint as that develops into better support for json. 
+  __
+
+
 ### Usage
 
-Download and include   src/jquery.viaf.autocomplete.js 
+1. Download and include   src/jquery.viaf.autocomplete.js 
 
-See for sample  implementation options in  testwidget.html
+   This widget requires at least jQuery 1.6.1, and jQuery UI 1.8
+   See the sample implementation in testwidget.html
+
+2. Download and include src/jquery.viafauto.js
+
+   See the sample implementation in testwidget2.html 
+
+
+
 
 ### VIAF Documentation
 
