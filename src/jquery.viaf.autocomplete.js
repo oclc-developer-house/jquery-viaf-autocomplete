@@ -24,13 +24,7 @@
  * This is so that we can use $ as an alias to jQuery
  */
 (function($) {
-
-  /* First line defines the name of your widget */
   $.widget("oclc.viafcomplete", {
-    /*
-     * Next line contains an object containing all the default options
-     * that you want to use in your plugin
-     */ 
     options: {
     	baseUrl: "http://viaf.org/viaf/AutoSuggest?query=",
     	boxWidth: "20",
@@ -99,9 +93,7 @@
     },
 
     /*
-     * Then we have the _create function
-     * This function gets called as soon as your widget is invoked
-     * Think of it as the initialization function.
+     * This function gets called as soon as this widget is invoked
      */
     _create: function() {
     	var  self = this,o = this.options, e = this.element;
@@ -109,7 +101,6 @@
 
     	this.selectFxn = (function(event, ui) {
     		self.elements.$box.removeClass("ui-autocomplete-loading");
-    		//console.log("label: " + ui.item.label + " pref: " + ui.item.pref);
 				var hid = $(this).attr("hidId");
 				if (hid) {
 					var preval = $(hid).val();
@@ -206,10 +197,7 @@
 //    },
 
     /*
-     * Next we can declare any private functions to be used internally by the widget
-     * Although I'm not sure if jQuery does anything to protect these functions when
-     * you prefix the name with an "_" it's not a bad design idea as you can instantly
-     * recognize that the function is an internal function not to be called publicly
+     * PRIVATE FUNCTIONS
      */
     _init: function() {
  	   var  e = this.element,selfId = $(e).attr('id');
@@ -246,17 +234,17 @@
  	  }
  	  return $box.val();
     },
-    
 
     /*
      * It is a good idea to write your own destroy function. The idea behind this is to remove any dom
      * changes you have made, or any variables you have left lying around.
      * jQuery will deal with removing the instance of the plugin.
      */
-    destroy: function() {}
+    destroy: function() {
+    	
+    }
   });
   /*
-   * Remember what I said in the first comment?
    * we pass in jQuery here so it gets aliased as $
    */
 })(jQuery);
