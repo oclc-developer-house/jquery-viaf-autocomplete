@@ -23,25 +23,20 @@
  */
 (function($) {
 
-  /* First line defines the name of your widget */
   $.widget("ui.viafauto", $.ui.autocomplete, {
    options: {
  // select: function(event, ui) { alert("Selected!"); return this._super(event, ui); },
     source: function(request, response) {
         var term = $.trim(request.term); 
         var url  = "http://viaf.org/viaf/AutoSuggest?query=" + term;
+        var me = this; 
         $.ajax({
             url: url,
             dataType: "jsonp",
             success: function(data) {
-                var ct = 0; 
                 if (data.result) {
                     response( $.map( data.result, function(item) {
-                        var retLbl = item.term;
-                        if (item.nametype) {
-                            retLbl = retLbl + " [" + item.nametype + "]";
-                        }
-                        ct++;
+                        var retLbl = item.term + " [" + item.nametype + "]";
                         return {
                             label: retLbl,
                             value: item.term,
@@ -49,50 +44,16 @@
                             nametype: item.nametype
                         }
                     }));
-                }
-                if (ct === 0) {
-                    self._trigger('_nomatch',$.Event("_nomatch"), {term: term} );
+                } else {
+                    console.log(me);
+                    me._trigger('nomatch', null, {term: term});
                 }
             },
         });  // end of $.ajax()
     }},      // end of source:, options
 
-/*      source: function(request, response) {
-            var o = this.options;
-    		var term = $.trim(request.term); 
-			var url = "http://viaf.org/viaf/AutoSuggest?query=" + term;
-			$.ajax({
-				url: url,
-				dataType: "jsonp",
-				jsonp: "jsonp",
-				crossDomain: true,
-				data: {},
-				success: function(data) {
-					var ct = 0; 
-					response( $.map( data.results, function(item) {
-						var retLbl = item.term;
-						ct++;
-						return {
-							label: retLbl,
-							value: retLbl,
-							id: item.viafid
-						}
-					}));
-					if (o.oncount && $.isFunction(o.oncount)) {
-						o.oncount(self.elements.$box.autocomplete("widget"), ct);
-					}
-				},
-				statusCode: {
-				    200: function() { self.calcAndSetWidth(o.menuWidth, o.menuHeight); },
-				    404: function() {alert("404");}
-			    }
-			});
-		} */
-
     /*
-     * Then we have the _create function
-     * This function gets called as soon as your widget is invoked
-     * Think of it as the initialization function.
+     * Punt a few fundamental tasks to the parent class
      */
     _create: function() {
         return this._super();
