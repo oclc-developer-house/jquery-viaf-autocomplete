@@ -20,9 +20,9 @@ $(function() {
         $( "<div>" ).text( message ).prependTo( "#log" );
         $( "#log" ).scrollTop( 0 );
     }
-    
-    alert("Pre .viafauto()");
-    $("#myViafId").viafauto({});
+    $("#myViafId").viafauto({
+        select: function(e, ui){ log(ui.item.label) }
+    });
 }); 
 </script>
 </head>
@@ -34,7 +34,7 @@ $(function() {
 
 <div class="ui-widget" style="margin-top:2em; font-family:Arial">
 Result:
-<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+<div id="log" style="height: 200px; width: 500px; overflow: auto;" class="ui-widget-content"></div>
 </div>
 
 </body>
