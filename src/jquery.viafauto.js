@@ -19,18 +19,12 @@
  */
 
 /*
- * First we start off with the closure
- * Notice that we pass in $ to the closure?
- * This is so that we can use $ as an alias to jQuery
+ * We can use $ as an alias to jQuery in a closure/wrapper avoiding conflict w/ prototype et al.
  */
 (function($) {
 
   /* First line defines the name of your widget */
   $.widget("ui.viafauto", $.ui.autocomplete, {
-    /*
-     * Next line contains an object containing all the default options
-     * that you want to use in your plugin
-     */ 
    options: {
  // select: function(event, ui) { alert("Selected!"); return this._super(event, ui); },
     source: function(request, response) {
@@ -43,12 +37,6 @@
                 var ct = 0; 
                 if (data.result) {
                     response( $.map( data.result, function(item) {
-                        // CUT THIS OUT WHEN WE GET THE NEW ENDPOINT
-                        if      (ct % 4 === 0) {item.nametype="personal"; }
-                        else if (ct % 4 === 1) {item.nametype="work"; }
-                        else if (ct % 4 === 2) {item.nametype="organization";}
-                        else {item.nametype="geographic";}
-                        // END OF CUT OUT
                         var retLbl = item.term;
                         if (item.nametype) {
                             retLbl = retLbl + " [" + item.nametype + "]";
@@ -67,7 +55,7 @@
                 }
             },
         });  // end of $.ajax()
-    }},       // end of source:, options
+    }},      // end of source:, options
 
 /*      source: function(request, response) {
             var o = this.options;
