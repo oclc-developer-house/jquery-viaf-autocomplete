@@ -25,37 +25,18 @@
  */
 (function($) {
   $.widget("oclc.viafautox", $.ui.viafauto, {
-    options: {
-        noselect: null,
-        nomatch:  null,
-        search: function(event, ui) {
-            $(this).addClass("ui-autocomplete-loading");
-        },
-        response: function(event, ui) {
-            $(this).removeClass("ui-autocomplete-loading");
-            if (! ui.content.length) {
-                alert("_triggering nomatch");
-                this._trigger('nomatch', null, {foo:"bar"});
+    _setOptions: function( options  ) { this._super( options  ); },
+    _setOption:  function(key, value) { this._super(key, value); },
+    _create:     function(          ) {    return this._super(); },
+    _init:       function() {
+        var me = this;
+        $(me.element).on("viafautoxchange", function(event, ui) {
+            $(me.element).removeClass("ui-autocomplete-loading");
+            if (! ui.item){
+             // console.log("_triggering noselect"); console.log(event.currentTarget);
+                me._trigger("noselect", event, {});
             }
-        },
-        change: function(event, ui) {
-            $(this).removeClass("ui-autocomplete-loading");
-            var foundItem = (ui.item)?true:false;
-            if (!foundItem){
-                alert("_triggering noselect");
-                this._trigger('noselect', null, {foo:"baz"});
-            }
-        },
-    },  // end of options
-
-    _setOptions: function( options ) {
-        this._super( options );
-    },
-    _setOption: function(key, value) {
-        this._super( key, value );
-    },
-    _create: function() {
-        return this._super();
-    },
+        });
+    }
   });
 })(jQuery);

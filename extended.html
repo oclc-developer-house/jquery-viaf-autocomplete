@@ -26,6 +26,7 @@
   }
 
   $(function() {
+
     $("#myViafId").viafautox( {
         select: function(event, ui){
             var item = ui.item;
@@ -33,9 +34,10 @@
             log(message);
             event.preventDefault();
             event.stopPropagation();
-            $("#myViafId").val("");
+            $(this).val("");
         } 
     });
+
     $("#secondViafId").viafautox({
         select: function(event, ui){
             var item = ui.item;
@@ -44,8 +46,10 @@
         },
         noselect: function() {
             alert("you didn't select anything??!");
+            return false;
         }
     });
+
     $("#thirdViafId").viafautox({
         delay: 500,     // longer delay!
         select: function(event, ui){
@@ -53,14 +57,16 @@
             var message = "From Third Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
             log(message);
         },
-        nomatch: function() {
+        nomatch: function(e, data) {
+            $(this).removeClass("ui-autocomplete-loading");
             if (confirm("Click OK to log your non-matching text; Cancel otherwise")) {
-                log("Unmatched term: " + $(this).val());
+                log("Unmatched term: " + data.term);
             } else {
                 $(this).val("");
             };
         }
     });
+
     $(".clear").click(function() { $(this).prev("input").val(""); });
 }); 
 </script>
@@ -81,13 +87,16 @@ widget.  Each example includes use of the select callback to write to the Result
 </div>
 <h2>With a noselect callback (and a label)</h2>
 <div class="ui-widget">
-    <label for="secondViafId">VIAF term</label><input id="secondViafId"/>
-<button class="clear">Clear</button></div>
+    <label for="secondViafId">VIAF term </label><input id="secondViafId"/>
+    <button class="clear">Clear</button>
+</div>
 
 <h2>With a nomatch callback asking the user whether they want to retain what they've typed</h2>
 <div class="ui-widget">
-<input id="thirdViafId"/>
-<button class="clear">Clear</button></div>
+    <input id="thirdViafId"/>
+    <button class="clear">Clear</button>
+</div>
+<br/>
 <div class="ui-widget">
 Result:
 <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
