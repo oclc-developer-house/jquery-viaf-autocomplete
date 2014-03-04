@@ -45,7 +45,6 @@
                         }
                     }));
                 } else {
-                    console.log(me);
                     me._trigger('nomatch', null, {term: term});
                 }
             },
