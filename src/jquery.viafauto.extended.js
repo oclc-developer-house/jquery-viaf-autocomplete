@@ -24,7 +24,7 @@
  * Closure function makes $ safe to use here without conflict with prototype et al.
  */
 (function($) {
-  $.widget("oclc.viafautox", $.ui.viafauto, {
+  $.widget("oclc.viafautox", $.oclc.viafauto, {
     _setOptions: function( options  ) { this._super( options  ); },
     _setOption:  function(key, value) { this._super(key, value); },
     _create:     function(          ) {    return this._super(); },

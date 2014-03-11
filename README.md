@@ -4,24 +4,70 @@ jquery-viaf-autocomplete
 
 To provide an easy way to obtain the VIAF ID of an input entity through use of the VIAF endpoint.  
 
-There are presently two widgets in this project:
-  * jquery.viaf.autocomplete.js , which uses, but does not extend, jquery.ui.autocomplete
-  * jquery.viafauto.js , which is an extension of jquery.ui.autocomplete
+There are presently three widgets in this project:
+
+  * __jquery.viafauto.js__ , which is an extension of jquery.ui.autocomplete (jQuery 1.9 or higher; jQuery UI 10 and higher)
+  * __jquery.viafauto.extended.js__, which extends jquery.viafauto.js even more
+  * __jquery.viaf.autocomplete.js__, which uses, but does not extend, jquery.ui.autocomplete (*legacy version*). This is to enable developers who, for some reason can't immediately upgrade their source to the requred jQuery and jQuery UI versions.
+ 
+ The only *usage* difference between the legacy widget and the non-legacy widget is in the widget name:
+ 
+   * for the *legacy widget*: 
+ 
 
 Currently, the widgets are using the OCLC VIAF AutoSuggest API endpoint, but we may switch to using the VIAF Search endpoint as that develops into better support for json. 
-  __
-
+ 
 
 ### Usage
 
-1. Download and include   src/jquery.viaf.autocomplete.js 
+#### Download the source:
+
+* If you are using jQuery UI 10: Download and include src/jquery.viafauto.js and, optionally (jquery.viafauto.extended.js)
+   
+   This widget requires at least jQuery 1.9 and jQuery UI 10/
+
+   See the sample implementation in **extended.html**
+   
+* If you are using legacy jQuery libraries, download and include  src/jquery.viaf.autocomplete.js 
 
    This widget requires at least jQuery 1.6.1, and jQuery UI 1.8
-   See the sample implementation in testwidget.html
+   
+   See the sample implementation in **legacy.html**
 
-2. Download and include src/jquery.viafauto.js
+####  Options
 
-   See the sample implementation in testwidget2.html 
+Either of these widgets take any option that is valid for the appropriate version of jQuery UI's [Autocomplete Widget](http://api.jqueryui.com/autocomplete/) .
+except _source_ , which the oclc widgets define.
+
+There are two additional options:
+
+  * _nomatch_  If defined, is a function that is triggered if no data is returned from the VIAF endpoint
+  * _noselect_ If defined, is a function that is triggered if the targetted element loses focus without the user having selected something.
+  
+####  Sample Usage
+
+_Assumes there is a text box, **foo** defined in the html_
+
+```
+<input type="text" id="foo"/>
+
+```
+
+```javascript
+$(function() {
+   $("#foo").viafautox( {
+          select: function(event, ui){
+            var item = ui.item;
+            var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
+            alert(message);
+          },
+          nomatch: function(event.ui) {
+        	var val = $(event.target).val();
+        	alert("no match was found for " + val);
+          } 
+       }
+     });
+```   
 
 
 
@@ -44,7 +90,7 @@ jQuery VIAF autocomplete backed by viaf.org
 
 Extends Autocomplete Widget:  http://api.jqueryui.com/autocomplete/
 
-Requires jQuery version .... 
+
 
 ### Example
 

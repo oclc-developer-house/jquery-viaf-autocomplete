@@ -23,7 +23,7 @@
  */
 (function($) {
 
-  $.widget("ui.viafauto", $.ui.autocomplete, {
+  $.widget("oclc.viafauto", $.ui.autocomplete, {
    options: {
  // select: function(event, ui) { alert("Selected!"); return this._super(event, ui); },
     source: function(request, response) {

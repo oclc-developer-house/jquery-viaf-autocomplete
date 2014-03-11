@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>jQuery VIAF Autocomplete - Remote JSONP datasource LEGACY version</title>
+   <link rel="stylesheet" href="http://code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css" />
+  <link rel="stylesheet" href="http://jqueryui.com/jquery-wp-content/themes/jqueryui.com/style.css">
+  <script src="js/jquery-1.6.1.min.js"></script>
+  <script src="js/jquery-ui.js"></script>
+  <script src="src/jquery.viaf.autocomplete.js"></script>
+  <style>
+  .ui-autocomplete-loading {
+    background: white url('images/ui-anim_basic_16x16.gif') right center no-repeat;
+  }
+
+  #search { width: 25em; }
+  </style>
+  <script>
+  function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+  }
+
+  $(function() {
+
+    $("#myViafId").viafautox( {
+        select: function(event, ui){
+            var item = ui.item;
+            var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
+            log(message);
+            event.preventDefault();
+            event.stopPropagation();
+            $(event.target).val("");
+        } 
+    });
+
+    $("#secondViafId").viafautox({
+        select: function(event, ui){
+            var item = ui.item;
+            var message = "From Second Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
+            log(message);
+        },
+        noselect: function() {
+            alert("you didn't select anything??!");
+            return false;
+        }
+    });
+
+    $("#thirdViafId").viafautox({
+        delay: 500,     // longer delay!
+        select: function(event, ui){
+            var item = ui.item;
+            var message = "From Third Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
+            log(message);
+        },
+        nomatch: function(e, data) {
+            $(this).removeClass("ui-autocomplete-loading");
+            if (confirm("Click OK to log your non-matching text; Cancel otherwise")) {
+                log("Unmatched term: " + data.term);
+            } else {
+                $(this).val("");
+            };
+        }
+    });
+
+    $(".clear").click(function() { $(this).prev("input").val(""); });
+}); 
+</script>
+</head>
+<body>
+<h1>VIAF Autocompleter widget exemplar page </h1>
+<div class="ui-widget">
+This page contains several examples of using the <strong>jquery.viafauto.extended.js</strong>
+widget.  Each example includes use of the select callback to write to the Results box.
+<br/>
+</div>
+<h2>Bare bones, clears box after select</h2>
+
+<div class="ui-widget">
+<input id="myViafId"/>
+</div>
+<div>
+</div>
+<h2>With a noselect callback (and a label)</h2>
+<div class="ui-widget">
+    <label for="secondViafId">VIAF term </label><input id="secondViafId"/>
+    <button class="clear">Clear</button>
+</div>
+
+<h2>With a nomatch callback asking the user whether they want to retain what they've typed</h2>
+<div class="ui-widget">
+    <input id="thirdViafId"/>
+    <button class="clear">Clear</button>
+</div>
+<br/>
+<div class="ui-widget">
+Result:
+<div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+
+</body>
+</html>
+
