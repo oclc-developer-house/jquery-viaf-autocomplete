@@ -29,7 +29,7 @@
     $(function() {
 	 if($('#edit_metadata').length != 0) {
      $("#edit_metadata").before( "<input type=\"hidden\"  id=\"viafSearch\"/>" );
-     $("#viafSearch").viafcomplete({
+     $("#viafSearch").viafautox({
 		 // baseUrl optional - this one uses dev autosuggest which includes name type
 		 baseUrl: "http://rdap02pxdu.dev.oclc.org:8080/viaf/AutoSuggest?query=",
 		 clearOnSelect:true,
@@ -39,7 +39,7 @@
 			 $("#value_dc_contributor_author_00").val(item.value);
 			 $("#value_dc_identifier_viaf_00").val(item.id);			 
 		 } // end select
-     }); // end viafcomplete
+     }); // end viafautox
 	 } // end if edit_metadata exists
 }); 
 </script>
