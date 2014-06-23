@@ -19,18 +19,17 @@
   	$(id).viafcomplete("boxValue",""); 
   	$(id).val("");
   }
+  function log( message ) {
+      $( "<div>" ).text( message ).prependTo( "#log" );
+      $( "#log" ).scrollTop( 0 );
+  }
 
   $(function() {
-    function log( message ) {
-        $( "<div>" ).text( message ).prependTo( "#log" );
-        $( "#log" ).scrollTop( 0 );
-    }
 
     $("#myViafId").viafcomplete( {
     	 clearOnSelect:true,
     	 select: function(item){
     		 var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")"; log(message);
-    		
     	 } 
      });
      $("#secondViafId").viafcomplete({boxWidth: "40", 
@@ -82,15 +81,15 @@ widget.  Each example does include use of the select call back to write to the R
 <input type="hidden"  id="myViafId"/>
 </div>
 <div>
-<button  onClick='alert($("#myViafId").val())'>Display hidden viaf id</button>&nbsp;
+<button onClick='alert($("#myViafId").val())'>Display hidden viaf id</button>&nbsp;
 </div>
 <h2>With a label, and a noselect callback </h2>
 <div class="ui-widget">
 <input type="hidden"  id="secondViafId"/>
 </div>
 <div>
-<button  onClick='alert($("#secondViafId").val())'>Display hidden viaf id</button>&nbsp;
-<button  onClick='clearField("#secondViafId")'>Clear field</button></div>
+<button onClick='alert($("#secondViafId").val())'>Display hidden viaf id</button>&nbsp;
+<button onClick='clearField("#secondViafId")'>Clear field</button></div>
 
 <h2>with a label and a nomatch callback that asks the user whether they want 
 to leave what they've typed in the field</h2>
@@ -98,8 +97,8 @@ to leave what they've typed in the field</h2>
 <input type="hidden"  id="thirdViafId"/>
 </div>
 <div>
-<button  onClick='alert($("#thirdViafId").val())'>Display hidden viaf id</button>&nbsp;
-<button  onClick='clearField("#thirdViafId")'>Clear field</button></div>
+<button onClick='alert($("#thirdViafId").val())'>Display hidden viaf id</button>&nbsp;
+<button onClick='clearField("#thirdViafId")'>Clear field</button></div>
 <!-- 
 widget has to be fixed to accommodate already-defined boxes
 <h2>Attaching to an already-defined text box</h2>
@@ -111,8 +110,6 @@ widget has to be fixed to accommodate already-defined boxes
 Result:
 <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
 </div>
-
-
 
 </body>
 </html>
