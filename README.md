@@ -6,93 +6,88 @@ To provide an easy way to obtain the VIAF ID of an input entity through use of t
 
 There are presently three widgets in this project:
 
-  * __jquery.viafauto.js__ , which is an extension of jquery.ui.autocomplete (jQuery 1.9 or higher; jQuery UI 10 and higher)
-  * __jquery.viafauto.extended.js__, which extends jquery.viafauto.js even more
-  * __jquery.viaf.autocomplete.js__, which uses, but does not extend, jquery.ui.autocomplete (*legacy version*). This is to enable developers who, for some reason can't immediately upgrade their source to the requred jQuery and jQuery UI versions.
+  * __jquery.viafauto.extended.js__ -- *Current*: Use this by default (jQuery 1.9+; jQuery UI 10+)
+  * __jquery.viafauto.js__, the core of the current version, an extension of jquery.ui.autocomplete.
+  * __jquery.viaf.autocomplete.js__ -- *Legacy*: Uses, but does not extend jquery.ui.autocomplete. This is to enable developers who, for some reason can't immediately upgrade their source to the requred jQuery and jQuery UI versions.
  
- The only *usage* difference between the legacy widget and the non-legacy widget is in the widget name:
- 
-   * for the *legacy widget*: 
- 
+The only *usage* difference between the legacy widget and the non-legacy widget is extensibility.
+They both produce a "viafautox" widget.  The "extended" widget is itself a good example of the extensibility afforded by modern the jQuery widget framework.
 
-Currently, the widgets are using the OCLC VIAF AutoSuggest API endpoint, but we may switch to using the VIAF Search endpoint as that develops into better support for json. 
+Currently, the widgets are using the OCLC VIAF AutoSuggest API endpoint, but we may switch to using the VIAF Search endpoint as that develops better support for JSON. 
  
+### Demo
+
+To see the widget(s) in action, view the [demo pages](http://oclc-developer-house.github.io/jquery-viaf-autocomplete/).
+
+### Requirements
+
+* jQuery 1.9 and jQuery UI 10
+* jQuery 1.6.1 and jQuery UI 1.8 (legacy)
 
 ### Usage
 
 #### Download the source:
 
-* If you are using jQuery UI 10: Download and include src/jquery.viafauto.js and, optionally (jquery.viafauto.extended.js)
-   
-   This widget requires at least jQuery 1.9 and jQuery UI 10/
+* Download and include src/jquery.viafauto.js and jquery.viafauto.extended.js (optional, recommended):
 
-   See the sample implementation in **extended.html**
+   See the sample implementation in [extended.html](http://oclc-developer-house.github.io/jquery-viaf-autocomplete/extended.html).
    
-* If you are using legacy jQuery libraries, download and include  src/jquery.viaf.autocomplete.js 
-
-   This widget requires at least jQuery 1.6.1, and jQuery UI 1.8
+* For a legacy application, download and include src/jquery.viaf.autocomplete.js 
    
-   See the sample implementation in **legacy.html**
+   See the sample implementation in [legacy.html](http://oclc-developer-house.github.io/jquery-viaf-autocomplete/legacy.html).
 
 ####  Options
 
-Either of these widgets take any option that is valid for the appropriate version of jQuery UI's [Autocomplete Widget](http://api.jqueryui.com/autocomplete/) .
-except _source_ , which the oclc widgets define.
+Either of these widgets take any option that is valid for the appropriate version of jQuery UI's [Autocomplete Widget](http://api.jqueryui.com/autocomplete/)
+except _source_, which these widgets define.
 
 There are two additional options:
 
-  * _nomatch_  If defined, is a function that is triggered if no data is returned from the VIAF endpoint
-  * _noselect_ If defined, is a function that is triggered if the targetted element loses focus without the user having selected something.
+  * _nomatch_  If defined, is a function that is triggered if no data is returned from the VIAF endpoint.
+  * _noselect_ If defined, is a function that is triggered if the targeted element loses focus without the user having selected something.
   
 ####  Sample Usage
 
-_Assumes there is a text box, **foo** defined in the html_
+_Assumes there is a text box **foo** defined in the html_, like:
 
-```
+```html
 <input type="text" id="foo"/>
-
 ```
+
+Then invoke directly on the target jQuery element:
 
 ```javascript
 $(function() {
    $("#foo").viafautox( {
-          select: function(event, ui){
-            var item = ui.item;
-            var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
-            alert(message);
-          },
-          nomatch: function(event.ui) {
-        	var val = $(event.target).val();
-        	alert("no match was found for " + val);
-          } 
-       }
-     });
+       select: function(event, ui){
+         var item = ui.item;
+         var message = "From First Search Box: " +item.id + " " + item.value + " (type: " + item.nametype +")";
+         alert(message);
+       },
+       nomatch: function(event.ui) {
+         var val = $(event.target).val();
+         alert("no match was found for " + val);
+       } 
+   }
+});
 ```   
+### License
 
-
-
+Released under Apache 2.0 license.  See the [LICENSE](LICENSE) file.
 
 ### VIAF Documentation
 
-OCLC VIAF API Documentation: http://oclc.org/developer/services/viaf
+jQuery autocomplete backed by [viaf.org](http://viaf.org)
 
-Using the API: http://oclc.org/developer/documentation/virtual-international-authority-file-viaf/using-api
+[OCLC VIAF API Documentation](http://oclc.org/developer/services/viaf)
 
-Request Types: http://oclc.org/developer/documentation/virtual-international-authority-file-viaf/request-types
+[Using the API](http://oclc.org/developer/documentation/virtual-international-authority-file-viaf/using-api)
 
-Response Details: http://oclc.org/developer/documentation/virtual-international-authority-file-viaf/response-details
+[Request Types](http://oclc.org/developer/documentation/virtual-international-authority-file-viaf/request-types)
 
-SRU Explain page: http://www.viaf.org/viaf/search
+[Response Details](http://oclc.org/developer/documentation/virtual-international-authority-file-viaf/response-details)
 
-### jQuery links
-
-jQuery VIAF autocomplete backed by viaf.org
-
-Extends Autocomplete Widget:  http://api.jqueryui.com/autocomplete/
-
-
-
-### Example
+[SRU Explain page](http://www.viaf.org/viaf/search)
 
 #### Sample Viaf Links
 
@@ -110,6 +105,10 @@ Extends Autocomplete Widget:  http://api.jqueryui.com/autocomplete/
 <td>http://www.viaf.org/viaf/search?query=local.personalNames+%3D+%22james%22&recordSchema=http://viaf.org%2FVIAFCluster&maximumRecords=100&startRecord=1&resultSetTTL=300&recordPacking=xml&recordXPath=&sortKeys=</td>
 </tr>
 </table>
+
+### jQuery links
+
+Extends jQuery UI's [Autocomplete Widget](http://api.jqueryui.com/autocomplete/)
 
 <!--
 
