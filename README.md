@@ -11,7 +11,7 @@ There are presently three widgets in this project:
   * __jquery.viaf.autocomplete.js__ -- *Legacy*: Uses, but does not extend jquery.ui.autocomplete. This is to enable developers who, for some reason can't immediately upgrade their source to the requred jQuery and jQuery UI versions.
  
 The only *usage* difference between the legacy widget and the non-legacy widget is extensibility.
-They both produce a "viafautox" widget.  The "extended" implementation is itself a good example of the extensibility afforded by modern the jQuery widget framework.
+They both produce a "viafautox" widget.  The "extended" implementation is itself a good example of the extensibility afforded by the modern jQuery widget framework.
 
 Currently, the widgets are using the OCLC VIAF AutoSuggest API endpoint, but we may switch to using the VIAF Search endpoint as that develops better support for JSON. 
  
