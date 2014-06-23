@@ -6,12 +6,12 @@ To provide an easy way to obtain the VIAF ID of an input entity through use of t
 
 There are presently three widgets in this project:
 
-  * __jquery.viafauto.extended.js__ -- *Current*: Use this by default (jQuery 1.9+; jQuery UI 10+)
-  * __jquery.viafauto.js__, the core of the current version, an extension of jquery.ui.autocomplete.
+  * __jquery.viafauto.extended.js__ -- *Current*: Use this by default (jQuery 1.9+; jQuery UI 1.10+).
+  * __jquery.viafauto.js__, the core of the current version, itself an extension of jquery.ui.autocomplete.
   * __jquery.viaf.autocomplete.js__ -- *Legacy*: Uses, but does not extend jquery.ui.autocomplete. This is to enable developers who, for some reason can't immediately upgrade their source to the requred jQuery and jQuery UI versions.
  
 The only *usage* difference between the legacy widget and the non-legacy widget is extensibility.
-They both produce a "viafautox" widget.  The "extended" widget is itself a good example of the extensibility afforded by modern the jQuery widget framework.
+They both produce a "viafautox" widget.  The "extended" implementation is itself a good example of the extensibility afforded by modern the jQuery widget framework.
 
 Currently, the widgets are using the OCLC VIAF AutoSuggest API endpoint, but we may switch to using the VIAF Search endpoint as that develops better support for JSON. 
  
@@ -21,8 +21,8 @@ To see the widget(s) in action, view the [demo pages](http://oclc-developer-hous
 
 ### Requirements
 
-* jQuery 1.9 and jQuery UI 10
-* jQuery 1.6.1 and jQuery UI 1.8 (legacy)
+* jQuery 1.9+ and jQuery UI 1.10+
+* jQuery 1.6.1+ and jQuery UI 1.8+ (legacy)
 
 ### Usage
 
