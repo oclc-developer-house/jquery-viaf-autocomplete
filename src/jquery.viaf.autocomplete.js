@@ -24,7 +24,7 @@
         baseUrl: "http://viaf.org/viaf/AutoSuggest?query=",
         noselect: null,
         nomatch: null,
-         _setOption: function(key, value) {
+        _setOption: function(key, value) {
             $.Widget.prototype._setOption.apply(this, arguments);
         },
     },
@@ -36,17 +36,17 @@
         var self = this, o = this.options, e = this.element;
         // we support any input change event, but need to deal with noselect
         this.changeFxn = (function(event, ui) {
-        	if (o.change) {
-        		o.change(event, ui);
-        	}
-        	var foundItem = (ui.item)?true:false;
-        	if (!foundItem){
-        		self._trigger('noselect');
-        	}
-        	return false;
+            if (o.change) {
+                o.change(event, ui);
+            }
+            var foundItem = (ui.item) ? true : false;
+            if (!foundItem){
+                self._trigger('noselect');
+            }
+            return false;
         });
         this.sourceFxn = (function(request, response) {
-             var term = $.trim(request.term);
+            var term = $.trim(request.term);
             var url = self.options.baseUrl + term;
             var noselect = self.options.noselect;
             $.ajax({
@@ -54,7 +54,7 @@
                 dataType: "jsonp",
                 data: {},
                 success: function(data) {
-                     if (data.result) {
+                    if (data.result) {
                         response( $.map( data.result, function(item) {
                             var retLbl = item.term;
                             if (item.nametype) {
@@ -67,10 +67,9 @@
                                 nametype: item.nametype
                             }
                         }));
-                    }
-                    else {
-                    	$(self.element).removeClass("ui-autocomplete-loading");
-                    	self._trigger('nomatch', null, {term:$(self.element).val()});
+                    } else {
+                        $(self.element).removeClass("ui-autocomplete-loading");
+                        self._trigger('nomatch', null, {term:$(self.element).val()});
                     }
                 },
                 statusCode: { // we're leaving this here for debugging purposes
@@ -85,25 +84,14 @@
         });
         /* these are the options needed for autocomplete.  */
         var acOpts = $.extend(true, {}, o);
-        acOpts.source= this.sourceFxn;
-       acOpts.change = this.changeFxn;
+        acOpts.source = this.sourceFxn;
+        acOpts.change = this.changeFxn;
         $(self.element).autocomplete(acOpts);
-       
     },
 
-    /*
-     * PRIVATE FUNCTIONS
-     */
-    _init: function() {
- 
-    },
-
-    _destroy : function() {
-    },
- 
-    destroy: function() {}
+    /* PRIVATE FUNCTIONS */
+    _init:    function() {},
+    _destroy: function() {},
+     destroy: function() {}
   });
-  /*
-   * we pass in jQuery here so it gets aliased as $
-   */
-})(jQuery);
+})(jQuery);  /* we pass in jQuery here so it gets aliased as $ */
