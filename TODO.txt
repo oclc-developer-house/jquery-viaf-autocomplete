@@ -34,16 +34,15 @@ New VIAF Autocomplete Endpoint from Ralph Van
 
 http://viaf.org/viaf/AutoSuggest?query=
 
-
 How this works
 ==============
 
 In your html, you have a hidden input
 <input type="hidden" id="myViafId"/>
 
-in your $document ready, you'd do
+in your $document ready, you'd do:
 
-$("#myViafId").viafautocomplete(
+$("#myViafId").viafautox(
   {
     onSelect: function(object){}, 
     onNoMatch: function() {alert("no match");}
